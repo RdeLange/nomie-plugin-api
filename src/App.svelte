@@ -27,6 +27,7 @@
   const CLIENT_RUNNING = 'napi-client-runing';
   const BACKGROUND_RUNNING = 'napi-background-running';
   const LATEST_API_CONFIG = 'napi-latest-config';
+  const API_CLI_CONFIG = "napi-cli-config";
   
   const plugin = new NomiePlugin({
         name: pluginname,
