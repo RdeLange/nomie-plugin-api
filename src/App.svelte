@@ -185,12 +185,6 @@ async function onLaunchStart(){
   ApiStore.init();
   localStorage.setItem(BACKGROUND_RUNNING,"1");
   setInterval(async ()=>{
-    
-    console.log("APISTORE:");
-    console.log($ApiStore);
-    console.log("LATEST_API_CONFIG:");
-    console.log(JSON.parse(localStorage.getItem(LATEST_API_CONFIG)));
- 
   if (localStorage.getItem(CLIENT_RUNNING)){
     console.log("🪝 Nomie Api Plugin detecting client is running")
     if (localStorage.getItem(BACKGROUND_RUNNING)){
