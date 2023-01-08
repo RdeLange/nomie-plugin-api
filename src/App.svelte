@@ -129,6 +129,8 @@
         localStorage.setItem(API_DEVICE_DISABLED, '1');}
       else { localStorage.removeItem(API_DEVICE_DISABLED);}
       ApiStore.set(config);
+      let cliconfig = {"apiKey":config.apiKey,"privateKey":config.privateKey,"domain":config.domainName};
+      localStorage.setItem(API_CLI_CONFIG, JSON.stringify(cliconfig));
      
       if (plugin.prefs.theme == "light") {
         theme = "g10"}
