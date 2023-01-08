@@ -542,7 +542,7 @@ const createApiStore = () => {
         fuse({ generating: true });
         try {
           // Get new API key and private key
-          const registered = await NAPI.register();
+          const registered = await NAPI.register() ;
           // If we're good 
           if (registered) {
             fuse({
