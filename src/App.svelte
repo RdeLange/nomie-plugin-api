@@ -1,5 +1,5 @@
 <script>
-  import { onMount , onDestroy, tick} from 'svelte';
+  import { onMount , onDestroy} from 'svelte';
   import { globalplugin } from './store/stores';
 	import Toast from './components/toast.svelte'
   import "carbon-components-svelte/css/all.css";
@@ -63,15 +63,15 @@
   $: if($ApiStore){
     setTimeout(()=>{
       let config = $ApiStore;
-     if(mode == "modal"){localStorage.setItem(LATEST_API_CONFIG, JSON.stringify($ApiStore));
-      plugin.storage.setItem('config', config);}
+     if(mode == "modal"){localStorage.setItem(LATEST_API_CONFIG, JSON.stringify($ApiStore));}
+      plugin.storage.setItem('config', config);
     },500)
   }
 
   function clientRunning(){
     localStorage.setItem(CLIENT_RUNNING,new Date());
     setTimeout(()=>{
-      ApiStore.init();
+      //ApiStore.init();
     },5000);
     setInterval(()=>{
       localStorage.setItem(CLIENT_RUNNING,new Date());
@@ -98,7 +98,7 @@
       console.log("==================🪝🪝=================");
       console.log("🪝 Nomie API Plugin onLaunch");
       console.log("==================🪝🪝=================");
-     setTimeout(()=>{ onLaunchStart()},2000);
+      onLaunchStart();
       
     });
     plugin.onWidget(() => {
@@ -112,7 +112,6 @@
 
     plugin.onRegistered(async () => {
       await plugin.storage.init()
-      await tick(10000);
       config = await plugin.storage.getItem('config') || {
     deviceDisabled: true,
     registered: undefined,
@@ -183,30 +182,14 @@
 
 
 async function onLaunchStart(){
-  
-  if ($ApiStore.apiKey == "" || $ApiStore.apiKey == undefined){
-    // try to read the storage again
-    config = await plugin.storage.getItem('config') || {
-    deviceDisabled: true,
-    registered: undefined,
-    domainName: "testing",
-    apiKey: null,
-    privateKey: null,
-    autoImport: false,
-    ready: false,
-    items: [],
-    inArchive: [],
-    inAPI: [],
-    generating: false,
-  };
-  if (config.deviceDisabled) {
-        localStorage.setItem(API_DEVICE_DISABLED, '1');}
-      else { localStorage.removeItem(API_DEVICE_DISABLED);}
-      ApiStore.set(config);
-  }
   ApiStore.init();
   localStorage.setItem(BACKGROUND_RUNNING,"1");
   setInterval(async ()=>{
+    
+    console.log("APISTORE:");
+    console.log($ApiStore);
+    console.log("LATEST_API_CONFIG:");
+    console.log(JSON.parse(localStorage.getItem(LATEST_API_CONFIG)));
  
   if (localStorage.getItem(CLIENT_RUNNING)){
     console.log("🪝 Nomie Api Plugin detecting client is running")
@@ -223,7 +206,6 @@ async function onLaunchStart(){
     
     // validate if client has not been running for more then 6 secs, then take over central processing again
     if (deltaseconds > 6) {
-      console.log(JSON.parse(localStorage.getItem(LATEST_API_CONFIG)));
       localStorage.removeItem(CLIENT_RUNNING);
       localStorage.setItem(BACKGROUND_RUNNING, new Date());
       //final config sync
@@ -241,8 +223,7 @@ async function onLaunchStart(){
     
   }
   else {
-    // background processes are running updating plugin storage once in a while
-    plugin.storage.setItem('config', config);
+    // background processes are running
   }
 },5000);
 }

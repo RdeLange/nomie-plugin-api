@@ -203,7 +203,7 @@ const createApiStore = () => {
     clearArchives() {
       console.log("🪝 Clear?");
       ApiLogStore.put("napi/saved.json", []);
-      methods.init();
+      //rdlremoved methods.init();
     },
     toggleDeviceDisabled() {
       console.log("🪝 Toggling device disabled");
@@ -216,7 +216,7 @@ const createApiStore = () => {
         localStorage.removeItem(API_DEVICE_DISABLED);
         fuse({ deviceDisabled: false})
       }
-      methods.init();
+      //rdlremoved methods.init();
     },
     async toggleAutoImport() {
       update((state) => {
@@ -389,7 +389,7 @@ const createApiStore = () => {
             NAPI.domain = domain.toString();
             const test = await NAPI.testAndSave(apiKey, privateKey);
             if (test === true) {
-              methods.init();
+             // rdlremoved methods.init();
               //Interact.alert(`👍  API Successfully Restored on `+domain);
               plugin.alert('Succesfully Restored', `👍  API Successfully Restored on `+domain);
             } else {

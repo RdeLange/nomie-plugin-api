@@ -474,10 +474,6 @@ var app = (function () {
             resolved_promise.then(flush);
         }
     }
-    function tick$1() {
-        schedule_update();
-        return resolved_promise;
-    }
     function add_render_callback(fn) {
         render_callbacks.push(fn);
     }
@@ -35154,7 +35150,7 @@ var app = (function () {
             clearArchives() {
                 console.log("🪝 Clear?");
                 ApiLogStore.put("napi/saved.json", []);
-                methods.init();
+                //rdlremoved methods.init();
             },
             toggleDeviceDisabled() {
                 console.log("🪝 Toggling device disabled");
@@ -35168,7 +35164,7 @@ var app = (function () {
                     localStorage.removeItem(API_DEVICE_DISABLED$1);
                     fuse({ deviceDisabled: false });
                 }
-                methods.init();
+                //rdlremoved methods.init();
             },
             async toggleAutoImport() {
                 update((state) => {
@@ -35337,7 +35333,7 @@ var app = (function () {
                             NAPI.domain = domain.toString();
                             const test = await NAPI.testAndSave(apiKey, privateKey);
                             if (test === true) {
-                                methods.init();
+                                // rdlremoved methods.init();
                                 //Interact.alert(`👍  API Successfully Restored on `+domain);
                                 plugin.alert('Succesfully Restored', `👍  API Successfully Restored on ` + domain);
                             }
@@ -42495,7 +42491,7 @@ var app = (function () {
     const { console: console_1 } = globals;
     const file = "src/App.svelte";
 
-    // (306:19) 
+    // (287:19) 
     function create_if_block_8(ctx) {
     	let h1;
     	let t1;
@@ -42518,12 +42514,12 @@ var app = (function () {
     			t5 = space();
     			hr = element("hr");
     			set_style(h1, "text-align", "center");
-    			add_location(h1, file, 306, 8, 8621);
+    			add_location(h1, file, 287, 8, 8005);
     			set_style(h2, "text-align", "center");
-    			add_location(h2, file, 307, 8, 8678);
+    			add_location(h2, file, 288, 8, 8062);
     			set_style(h5, "text-align", "center");
-    			add_location(h5, file, 308, 8, 8734);
-    			add_location(hr, file, 309, 8, 8804);
+    			add_location(h5, file, 289, 8, 8118);
+    			add_location(hr, file, 290, 8, 8188);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, h1, anchor);
@@ -42552,14 +42548,14 @@ var app = (function () {
     		block,
     		id: create_if_block_8.name,
     		type: "if",
-    		source: "(306:19) ",
+    		source: "(287:19) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (279:0) {#if mode == "modal"  || mode =="widget"}
+    // (260:0) {#if mode == "modal"  || mode =="widget"}
     function create_if_block_1(ctx) {
     	let theme_1;
     	let updating_theme;
@@ -42652,14 +42648,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(279:0) {#if mode == \\\"modal\\\"  || mode ==\\\"widget\\\"}",
+    		source: "(260:0) {#if mode == \\\"modal\\\"  || mode ==\\\"widget\\\"}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (281:0) {#if inNomie}
+    // (262:0) {#if inNomie}
     function create_if_block_2(ctx) {
     	let current_block_type_index;
     	let if_block;
@@ -42749,14 +42745,14 @@ var app = (function () {
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(281:0) {#if inNomie}",
+    		source: "(262:0) {#if inNomie}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (301:27) 
+    // (282:27) 
     function create_if_block_7(ctx) {
     	let p;
 
@@ -42764,7 +42760,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "Widget Placeholder";
-    			add_location(p, file, 301, 0, 8554);
+    			add_location(p, file, 282, 0, 7938);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -42781,14 +42777,14 @@ var app = (function () {
     		block,
     		id: create_if_block_7.name,
     		type: "if",
-    		source: "(301:27) ",
+    		source: "(282:27) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (282:0) {#if mode == "modal"}
+    // (263:0) {#if mode == "modal"}
     function create_if_block_3(ctx) {
     	let header;
     	let t;
@@ -42847,7 +42843,7 @@ var app = (function () {
     			const header_changes = {};
     			if (dirty & /*parent*/ 4) header_changes.company = /*parent*/ ctx[2];
 
-    			if (dirty & /*$$scope*/ 2097152) {
+    			if (dirty & /*$$scope*/ 1048576) {
     				header_changes.$$scope = { dirty, ctx };
     			}
 
@@ -42914,14 +42910,14 @@ var app = (function () {
     		block,
     		id: create_if_block_3.name,
     		type: "if",
-    		source: "(282:0) {#if mode == \\\"modal\\\"}",
+    		source: "(263:0) {#if mode == \\\"modal\\\"}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (287:2) <HeaderUtilities>
+    // (268:2) <HeaderUtilities>
     function create_default_slot_1(ctx) {
     	let headerglobalaction0;
     	let t0;
@@ -42997,14 +42993,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_1.name,
     		type: "slot",
-    		source: "(287:2) <HeaderUtilities>",
+    		source: "(268:2) <HeaderUtilities>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (283:0) <Header company={parent} platformName={pluginname} on:click={showMain}>
+    // (264:0) <Header company={parent} platformName={pluginname} on:click={showMain}>
     function create_default_slot(ctx) {
     	let headerutilities;
     	let current;
@@ -43028,7 +43024,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const headerutilities_changes = {};
 
-    			if (dirty & /*$$scope*/ 2097152) {
+    			if (dirty & /*$$scope*/ 1048576) {
     				headerutilities_changes.$$scope = { dirty, ctx };
     			}
 
@@ -43052,14 +43048,14 @@ var app = (function () {
     		block,
     		id: create_default_slot.name,
     		type: "slot",
-    		source: "(283:0) <Header company={parent} platformName={pluginname} on:click={showMain}>",
+    		source: "(264:0) <Header company={parent} platformName={pluginname} on:click={showMain}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (284:2) <svelte:fragment slot="skip-to-content">
+    // (265:2) <svelte:fragment slot="skip-to-content">
     function create_skip_to_content_slot(ctx) {
     	let skiptocontent;
     	let current;
@@ -43091,14 +43087,14 @@ var app = (function () {
     		block,
     		id: create_skip_to_content_slot.name,
     		type: "slot",
-    		source: "(284:2) <svelte:fragment slot=\\\"skip-to-content\\\">",
+    		source: "(265:2) <svelte:fragment slot=\\\"skip-to-content\\\">",
     		ctx
     	});
 
     	return block;
     }
 
-    // (298:29) 
+    // (279:29) 
     function create_if_block_6(ctx) {
     	let settings;
     	let updating_config;
@@ -43156,14 +43152,14 @@ var app = (function () {
     		block,
     		id: create_if_block_6.name,
     		type: "if",
-    		source: "(298:29) ",
+    		source: "(279:29) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (296:25) 
+    // (277:25) 
     function create_if_block_5(ctx) {
     	let info;
     	let current;
@@ -43210,14 +43206,14 @@ var app = (function () {
     		block,
     		id: create_if_block_5.name,
     		type: "if",
-    		source: "(296:25) ",
+    		source: "(277:25) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (294:0) {#if view == "main"}
+    // (275:0) {#if view == "main"}
     function create_if_block_4(ctx) {
     	let main;
     	let current;
@@ -43254,14 +43250,14 @@ var app = (function () {
     		block,
     		id: create_if_block_4.name,
     		type: "if",
-    		source: "(294:0) {#if view == \\\"main\\\"}",
+    		source: "(275:0) {#if view == \\\"main\\\"}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (312:0) {#if loading}
+    // (293:0) {#if loading}
     function create_if_block(ctx) {
     	let div;
     	let p;
@@ -43271,9 +43267,9 @@ var app = (function () {
     			div = element("div");
     			p = element("p");
     			p.textContent = "Loading....";
-    			add_location(p, file, 313, 0, 8851);
+    			add_location(p, file, 294, 0, 8235);
     			attr_dev(div, "class", "startup");
-    			add_location(div, file, 312, 0, 8829);
+    			add_location(div, file, 293, 0, 8213);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -43288,7 +43284,7 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(312:0) {#if loading}",
+    		source: "(293:0) {#if loading}",
     		ctx
     	});
 
@@ -43428,6 +43424,25 @@ var app = (function () {
     const BACKGROUND_RUNNING = 'napi-background-running';
     const LATEST_API_CONFIG = 'napi-latest-config';
 
+    function clientRunning() {
+    	localStorage.setItem(CLIENT_RUNNING, new Date());
+
+    	setTimeout(
+    		() => {
+    			
+    		},
+    		5000
+    	); //ApiStore.init();
+    	//ApiStore.init();
+
+    	setInterval(
+    		() => {
+    			localStorage.setItem(CLIENT_RUNNING, new Date());
+    		},
+    		5000
+    	);
+    }
+
     function instance($$self, $$props, $$invalidate) {
     	let $ApiStore;
     	validate_store(ApiStore, 'ApiStore');
@@ -43468,24 +43483,6 @@ var app = (function () {
     	let loading = true;
     	let view = "main";
 
-    	function clientRunning() {
-    		localStorage.setItem(CLIENT_RUNNING, new Date());
-
-    		setTimeout(
-    			() => {
-    				ApiStore.init();
-    			},
-    			5000
-    		);
-
-    		setInterval(
-    			() => {
-    				localStorage.setItem(CLIENT_RUNNING, new Date());
-    			},
-    			5000
-    		);
-    	}
-
     	// Load init params
     	function loadInitParams() {
     		$$invalidate(2, parent = getParentUrl());
@@ -43509,13 +43506,7 @@ var app = (function () {
     			console.log("==================🪝🪝=================");
     			console.log("🪝 Nomie API Plugin onLaunch");
     			console.log("==================🪝🪝=================");
-
-    			setTimeout(
-    				() => {
-    					onLaunchStart();
-    				},
-    				2000
-    			);
+    			onLaunchStart();
     		});
 
     		plugin.onWidget(() => {
@@ -43532,7 +43523,6 @@ var app = (function () {
 
     		plugin.onRegistered(async () => {
     			await plugin.storage.init();
-    			await tick$1();
 
     			$$invalidate(0, config = await plugin.storage.getItem('config') || {
     				deviceDisabled: true,
@@ -43613,36 +43603,16 @@ var app = (function () {
     	}
 
     	async function onLaunchStart() {
-    		if ($ApiStore.apiKey == "" || $ApiStore.apiKey == undefined) {
-    			// try to read the storage again
-    			$$invalidate(0, config = await plugin.storage.getItem('config') || {
-    				deviceDisabled: true,
-    				registered: undefined,
-    				domainName: "testing",
-    				apiKey: null,
-    				privateKey: null,
-    				autoImport: false,
-    				ready: false,
-    				items: [],
-    				inArchive: [],
-    				inAPI: [],
-    				generating: false
-    			});
-
-    			if (config.deviceDisabled) {
-    				localStorage.setItem(API_DEVICE_DISABLED, '1');
-    			} else {
-    				localStorage.removeItem(API_DEVICE_DISABLED);
-    			}
-
-    			ApiStore.set(config);
-    		}
-
     		ApiStore.init();
     		localStorage.setItem(BACKGROUND_RUNNING, "1");
 
     		setInterval(
     			async () => {
+    				console.log("APISTORE:");
+    				console.log($ApiStore);
+    				console.log("LATEST_API_CONFIG:");
+    				console.log(JSON.parse(localStorage.getItem(LATEST_API_CONFIG)));
+
     				if (localStorage.getItem(CLIENT_RUNNING)) {
     					console.log("🪝 Nomie Api Plugin detecting client is running");
 
@@ -43661,7 +43631,6 @@ var app = (function () {
 
     					// validate if client has not been running for more then 6 secs, then take over central processing again
     					if (deltaseconds > 6) {
-    						console.log(JSON.parse(localStorage.getItem(LATEST_API_CONFIG)));
     						localStorage.removeItem(CLIENT_RUNNING);
     						localStorage.setItem(BACKGROUND_RUNNING, new Date());
 
@@ -43685,10 +43654,7 @@ var app = (function () {
     						console.log("🪝 Nomie Api Plugin detecting client is closed");
     						console.log("🪝 Nomie Api Plugin background will take over processes");
     					}
-    				} else {
-    					// background processes are running updating plugin storage once in a while
-    					plugin.storage.setItem('config', config);
-    				}
+    				} // background processes are running
     			},
     			5000
     		);
@@ -43739,7 +43705,6 @@ var app = (function () {
     	$$self.$capture_state = () => ({
     		onMount,
     		onDestroy,
-    		tick: tick$1,
     		globalplugin,
     		Toast,
     		Header,
@@ -43805,8 +43770,9 @@ var app = (function () {
 
     						if (mode == "modal") {
     							localStorage.setItem(LATEST_API_CONFIG, JSON.stringify($ApiStore));
-    							plugin.storage.setItem('config', config);
     						}
+
+    						plugin.storage.setItem('config', config);
     					},
     					500
     				);
