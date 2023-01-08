@@ -1,0 +1,124 @@
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const assert_1 = __importDefault(require("assert"));
+const mocha_1 = require("mocha");
+const vscode_languageserver_textdocument_1 = require("vscode-languageserver-textdocument");
+const vscode_languageserver_types_1 = require("vscode-languageserver-types");
+const emmetHelper_1 = require("../emmetHelper");
+const COMPLETE_OPTIONS = {
+    preferences: {},
+    showExpandedAbbreviation: 'always',
+    showAbbreviationSuggestions: false,
+    syntaxProfiles: {},
+    variables: {}
+};
+function testExpandWithCompletion(syntax, abbrev, expanded) {
+    mocha_1.it(`should expand ${abbrev} to\n${expanded}`, () => __awaiter(this, void 0, void 0, function* () {
+        const document = vscode_languageserver_textdocument_1.TextDocument.create(`test://test/test.${syntax}`, syntax, 0, abbrev);
+        const position = vscode_languageserver_types_1.Position.create(0, abbrev.length);
+        const completionList = emmetHelper_1.doComplete(document, position, syntax, COMPLETE_OPTIONS);
+        assert_1.default.ok(completionList && completionList.items, `completion list exists for ${abbrev}`);
+        assert_1.default.ok(completionList.items.length > 0, `completion list is not empty for ${abbrev}`);
+        assert_1.default.strictEqual(expanded, vscode_languageserver_textdocument_1.TextDocument.applyEdits(document, [completionList.items[0].textEdit]));
+    }));
+}
+function testExpand(syntax, abbrev, expanded) {
+    mocha_1.it(`should wrap ${abbrev} to obtain\n${expanded}`, () => __awaiter(this, void 0, void 0, function* () {
+        const type = emmetHelper_1.getSyntaxType(syntax);
+        const config = {
+            type,
+            syntax
+        };
+        const expandedRes = emmetHelper_1.expandAbbreviation(abbrev, config);
+        assert_1.default.strictEqual(expanded, expandedRes);
+    }));
+}
+function testWrap(abbrev, text, expanded, options) {
+    mocha_1.it(`should wrap ${text} with ${abbrev} to obtain\n${expanded}`, () => __awaiter(this, void 0, void 0, function* () {
+        const syntax = 'html';
+        const type = emmetHelper_1.getSyntaxType(syntax);
+        const config = {
+            type,
+            syntax,
+            text,
+            options
+        };
+        const expandedRes = emmetHelper_1.expandAbbreviation(abbrev, config);
+        assert_1.default.strictEqual(expanded, expandedRes);
+    }));
+}
+mocha_1.describe('Expand Abbreviations', () => {
+    // https://github.com/microsoft/vscode/issues/59951
+    testExpandWithCompletion('scss', 'fsz18', 'font-size: 18px;');
+    // https://github.com/microsoft/vscode/issues/63703
+    testExpandWithCompletion('jsx', 'button[onClick={props.onClick}]', '<button onClick={props.onClick}>${0}</button>');
+    // https://github.com/microsoft/vscode/issues/67971
+    testExpandWithCompletion('html', 'div>p+lorem3', '<div>\n\t<p>${0}</p>\n\tLorem, ipsum dolor.\n</div>');
+    // https://github.com/microsoft/vscode/issues/69168
+    testExpandWithCompletion('html', 'ul>li{my list $@-}*3', '<ul>\n\t<li>my list 3</li>\n\t<li>my list 2</li>\n\t<li>my list 1</li>\n</ul>');
+    // https://github.com/microsoft/vscode/issues/74505
+    testExpandWithCompletion('css', '@f', '@font-face {\n\tfont-family: ${0};\n\tsrc: url(${0});\n}');
+    testExpandWithCompletion('css', '@i', '@import url(${0});');
+    testExpandWithCompletion('css', '@import', '@import url(${0});');
+    testExpandWithCompletion('css', '@kf', '@keyframes ${1:identifier} {\n\t${0}\n}');
+    testExpandWithCompletion('css', '@', '@media ${1:screen} {\n\t${0}\n}');
+    testExpandWithCompletion('css', '@m', '@media ${1:screen} {\n\t${0}\n}');
+    // https://github.com/microsoft/vscode/issues/92120
+    testExpandWithCompletion('css', 'd', 'display: ${1:block};');
+    // escaped dollar signs should not change after going through Emmet expansion only
+    // NOTE: VS Code automatically removes the backslashes after the expansion
+    testExpand('html', 'span{\\$5}', '<span>\\$5</span>');
+    testExpand('html', 'span{\\$hello}', '<span>\\$hello</span>');
+    testExpand('html', 'ul>li.item$*2{test\\$}', '<ul>\n\t<li class="item1">test\\$</li>\n\t<li class="item2">test\\$</li>\n</ul>');
+});
+mocha_1.describe('Wrap Abbreviations (basic)', () => {
+    // basic cases
+    testWrap('ul>li', 'test', '<ul>\n\t<li>test</li>\n</ul>');
+    testWrap('ul>li', ['test'], '<ul>\n\t<li>test</li>\n</ul>');
+    testWrap('ul>li', ['test1', 'test2'], '<ul>\n\t<li>\n\t\ttest1\n\t\ttest2\n\t</li>\n</ul>');
+    // dollar signs should be escaped when wrapped (specific to VS Code)
+    testWrap('ul>li*', ['test$', 'test$'], '<ul>\n\t<li>test\\$</li>\n\t<li>test\\$</li>\n</ul>');
+    testWrap('ul>li*', ['$1', '$2'], '<ul>\n\t<li>\\$1</li>\n\t<li>\\$2</li>\n</ul>');
+    testWrap('ul>li.item$*', ['test$', 'test$'], '<ul>\n\t<li class="item1">test\\$</li>\n\t<li class="item2">test\\$</li>\n</ul>');
+    // https://github.com/emmetio/expand-abbreviation/issues/17
+    testWrap('ul', '<li>test1</li>\n<li>test2</li>', '<ul>\n\t<li>test1</li>\n\t<li>test2</li>\n</ul>');
+});
+mocha_1.describe('Wrap Abbreviations (with internal nodes)', () => {
+    // wrapping elements where the internals contain nodes should result in proper indentation
+    testWrap('ul', '<li>test</li>', '<ul>\n\t<li>test</li>\n</ul>');
+    testWrap('ul', ['<li>test1</li>', '<li>test2</li>'], '<ul>\n\t<li>test1</li>\n\t<li>test2</li>\n</ul>');
+    testWrap('ul>li', '<span>test</span>', '<ul>\n\t<li>\n\t\t<span>test</span>\n\t</li>\n</ul>');
+    testWrap('ul>li>div', '<p><span>test</span></p>', '<ul>\n\t<li>\n\t\t<div>\n\t\t\t<p><span>test</span></p>\n\t\t</div>\n\t</li>\n</ul>');
+    testWrap('ul*', ['<li>test1</li>', '<li>test2</li>'], '<ul>\n\t<li>test1</li>\n</ul>\n<ul>\n\t<li>test2</li>\n</ul>');
+    testWrap('div', 'teststring', '<div>teststring</div>');
+    testWrap('div', 'test\nstring', '<div>\n\ttest\n\tstring\n</div>');
+});
+mocha_1.describe('Wrap Abbreviations (more advanced)', () => {
+    // https://github.com/microsoft/vscode/issues/45724
+    testWrap('ul>li{hello}', 'Hello world', '<ul>\n\t<li>helloHello world</li>\n</ul>');
+    testWrap('ul>li{hello}+li.bye', 'Hello world', '<ul>\n\t<li>hello</li>\n\t<li class="bye">Hello world</li>\n</ul>');
+    // https://github.com/microsoft/vscode/issues/65469
+    // VS Code has to trim empty entries, for example:
+    testWrap('p*', ['first line', '', 'second line'].filter(s => s.length), '<p>first line</p>\n<p>second line</p>');
+    // https://github.com/microsoft/vscode/issues/78015
+    // (upstream issue)
+    // testWrap('ul>li*', ['one', 'two'], '<ul>\n\t<li>one</li>\n\t<li>two</li>\n</ul>', { "output.format": false });
+    // https://github.com/microsoft/vscode/issues/54711
+    // https://github.com/microsoft/vscode/issues/107592
+    // (upstream issue)
+    // testWrap('a', 'www.google.it', '<a href="www.google.it">www.google.it</a>');
+    // testWrap('a', 'http://www.site.com/en-us/download/details.aspx?id=12345', '<a href="http://www.site.com/en-us/download/details.aspx?id=12345">http://www.site.com/en-us/download/details.aspx?id=12345</a>');
+});
+//# sourceMappingURL=expand.test.js.map
