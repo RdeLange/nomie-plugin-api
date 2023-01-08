@@ -71,7 +71,7 @@
   function clientRunning(){
     localStorage.setItem(CLIENT_RUNNING,new Date());
     setTimeout(()=>{
-      //ApiStore.init();
+      ApiStore.init();
     },5000);
     setInterval(()=>{
       localStorage.setItem(CLIENT_RUNNING,new Date());
