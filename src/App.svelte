@@ -63,8 +63,8 @@
   $: if($ApiStore){
     setTimeout(()=>{
       let config = $ApiStore;
-     if(mode == "modal"){localStorage.setItem(LATEST_API_CONFIG, JSON.stringify($ApiStore));}
-      plugin.storage.setItem('config', config);
+     if(mode == "modal"){localStorage.setItem(LATEST_API_CONFIG, JSON.stringify($ApiStore));
+      plugin.storage.setItem('config', config);}
     },500)
   }
 
@@ -82,63 +82,23 @@
   function loadInitParams() {
     parent = getParentUrl();
     globalplugin.set(plugin);
-    
     plugin.onUIOpened(async () => {
       mode = 'modal';
-      
+      clientRunning();
       console.log("==================🪝🪝=================");
       console.log("🪝 Nomie API Plugin Client Started");
       console.log("==================🪝🪝=================");
-      
-      config = await plugin.storage.getItem('config') || {
-    deviceDisabled: true,
-    registered: undefined,
-    domainName: "testing",
-    apiKey: null,
-    privateKey: null,
-    autoImport: false,
-    ready: false,
-    items: [],
-    inArchive: [],
-    inAPI: [],
-    generating: false,
-  };
-  clientRunning();
-      if (config.deviceDisabled) {
-        localStorage.setItem(API_DEVICE_DISABLED, '1');}
-      else { localStorage.removeItem(API_DEVICE_DISABLED);}
-      ApiStore.set(config);
     if ($ApiStore.registered && !$ApiStore.deviceDisabled) {
       showMain();
     }
     else {showSettings()}
       
     });
-
     plugin.onLaunch(async () => {
-      setTimeout(async()=>{
       console.log("==================🪝🪝=================");
       console.log("🪝 Nomie API Plugin onLaunch");
       console.log("==================🪝🪝=================");
-      config = await plugin.storage.getItem('config') || {
-    deviceDisabled: true,
-    registered: undefined,
-    domainName: "testing",
-    apiKey: null,
-    privateKey: null,
-    autoImport: false,
-    ready: false,
-    items: [],
-    inArchive: [],
-    inAPI: [],
-    generating: false,
-  };
-      if (config.deviceDisabled) {
-        localStorage.setItem(API_DEVICE_DISABLED, '1');}
-      else { localStorage.removeItem(API_DEVICE_DISABLED);}
-      ApiStore.set(config);},1000);
-
-      setTimeout(()=>{onLaunchStart()},2000);
+     setTimeout(()=>{ onLaunchStart()},2000);
       
     });
     plugin.onWidget(() => {
@@ -152,7 +112,7 @@
 
     plugin.onRegistered(async () => {
       await plugin.storage.init()
-     /* config = await plugin.storage.getItem('config') || {
+      config = await plugin.storage.getItem('config') || {
     deviceDisabled: true,
     registered: undefined,
     domainName: "testing",
@@ -168,7 +128,7 @@
       if (config.deviceDisabled) {
         localStorage.setItem(API_DEVICE_DISABLED, '1');}
       else { localStorage.removeItem(API_DEVICE_DISABLED);}
-      ApiStore.set(config); */
+      ApiStore.set(config);
      
       if (plugin.prefs.theme == "light") {
         theme = "g10"}
@@ -222,6 +182,27 @@
 
 
 async function onLaunchStart(){
+  
+  if ($ApiStore.apiKey == "" || $ApiStore.apiKey == undefined){
+    // try to read the storage again
+    config = await plugin.storage.getItem('config') || {
+    deviceDisabled: true,
+    registered: undefined,
+    domainName: "testing",
+    apiKey: null,
+    privateKey: null,
+    autoImport: false,
+    ready: false,
+    items: [],
+    inArchive: [],
+    inAPI: [],
+    generating: false,
+  };
+  if (config.deviceDisabled) {
+        localStorage.setItem(API_DEVICE_DISABLED, '1');}
+      else { localStorage.removeItem(API_DEVICE_DISABLED);}
+      ApiStore.set(config);
+  }
   ApiStore.init();
   localStorage.setItem(BACKGROUND_RUNNING,"1");
   setInterval(async ()=>{
@@ -258,7 +239,8 @@ async function onLaunchStart(){
     
   }
   else {
-    // background processes are running
+    // background processes are running updating plugin storage once in a while
+    plugin.storage.setItem('config', config);
   }
 },5000);
 }
