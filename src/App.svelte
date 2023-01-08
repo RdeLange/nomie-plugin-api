@@ -63,7 +63,7 @@
   $: if($ApiStore){
     setTimeout(()=>{
       let config = $ApiStore;
-     if(mode == "modal"){localStorage.setItem(LATEST_API_CONFIG, JSON.stringify($ApiStore));}
+     if(mode == "modal"){localStorage.setItem(LATEST_API_CONFIG, JSON.stringify(config));}
       plugin.storage.setItem('config', config);
     },500)
   }
@@ -112,7 +112,7 @@
 
     plugin.onRegistered(async () => {
       await plugin.storage.init()
-      config = await plugin.storage.getItem('config') || {
+      config = await plugin.storage.getItem('config') || JSON.parse(localStorage.getItem(LATEST_API_CONFIG)) || {
     deviceDisabled: true,
     registered: undefined,
     domainName: "testing",
