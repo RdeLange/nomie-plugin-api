@@ -19,7 +19,7 @@
 
   import { ApiStore } from "./modules/api-store";
 
-  const pluginname = "API Plugin";
+  const pluginname = "Nomie API";
   const pluginemoji = "🪝";
   var parent = "";
 
