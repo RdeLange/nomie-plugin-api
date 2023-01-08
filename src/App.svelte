@@ -1,5 +1,5 @@
 <script>
-  import { onMount , onDestroy} from 'svelte';
+  import { onMount , onDestroy, tick} from 'svelte';
   import { globalplugin } from './store/stores';
 	import Toast from './components/toast.svelte'
   import "carbon-components-svelte/css/all.css";
@@ -112,6 +112,7 @@
 
     plugin.onRegistered(async () => {
       await plugin.storage.init()
+      await tick(10000);
       config = await plugin.storage.getItem('config') || {
     deviceDisabled: true,
     registered: undefined,
@@ -222,6 +223,7 @@ async function onLaunchStart(){
     
     // validate if client has not been running for more then 6 secs, then take over central processing again
     if (deltaseconds > 6) {
+      console.log(JSON.parse(localStorage.getItem(LATEST_API_CONFIG)));
       localStorage.removeItem(CLIENT_RUNNING);
       localStorage.setItem(BACKGROUND_RUNNING, new Date());
       //final config sync
