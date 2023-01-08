@@ -99,7 +99,7 @@
       console.log("==================🪝🪝=================");
       console.log("🪝 Nomie API Plugin onLaunch");
       console.log("==================🪝🪝=================");
-     // onLaunchStart();
+      onLaunchStart();
       
     });
     plugin.onWidget(() => {
