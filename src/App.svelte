@@ -82,36 +82,44 @@
   function loadInitParams() {
     parent = getParentUrl();
     globalplugin.set(plugin);
+    
     plugin.onUIOpened(async () => {
       mode = 'modal';
-      clientRunning();
+      
       console.log("==================🪝🪝=================");
       console.log("🪝 Nomie API Plugin Client Started");
       console.log("==================🪝🪝=================");
+      
+      config = await plugin.storage.getItem('config') || {
+    deviceDisabled: true,
+    registered: undefined,
+    domainName: "testing",
+    apiKey: null,
+    privateKey: null,
+    autoImport: false,
+    ready: false,
+    items: [],
+    inArchive: [],
+    inAPI: [],
+    generating: false,
+  };
+  clientRunning();
+      if (config.deviceDisabled) {
+        localStorage.setItem(API_DEVICE_DISABLED, '1');}
+      else { localStorage.removeItem(API_DEVICE_DISABLED);}
+      ApiStore.set(config);
     if ($ApiStore.registered && !$ApiStore.deviceDisabled) {
       showMain();
     }
     else {showSettings()}
       
     });
+
     plugin.onLaunch(async () => {
+      setTimeout(async()=>{
       console.log("==================🪝🪝=================");
       console.log("🪝 Nomie API Plugin onLaunch");
       console.log("==================🪝🪝=================");
-      onLaunchStart();
-      
-    });
-    plugin.onWidget(() => {
-      if (plugin.prefs.theme == "light") {
-        theme = "white"}
-      else if (plugin.prefs.theme == "dark") {
-        theme = "g100"}  
-      else {theme = "g10"} 
-      mode = "widget";
-    });
-
-    plugin.onRegistered(async () => {
-      await plugin.storage.init()
       config = await plugin.storage.getItem('config') || {
     deviceDisabled: true,
     registered: undefined,
@@ -128,7 +136,39 @@
       if (config.deviceDisabled) {
         localStorage.setItem(API_DEVICE_DISABLED, '1');}
       else { localStorage.removeItem(API_DEVICE_DISABLED);}
-      ApiStore.set(config);
+      ApiStore.set(config);},1000);
+
+      setTimeout(()=>{onLaunchStart()},2000);
+      
+    });
+    plugin.onWidget(() => {
+      if (plugin.prefs.theme == "light") {
+        theme = "white"}
+      else if (plugin.prefs.theme == "dark") {
+        theme = "g100"}  
+      else {theme = "g10"} 
+      mode = "widget";
+    });
+
+    plugin.onRegistered(async () => {
+      await plugin.storage.init()
+     /* config = await plugin.storage.getItem('config') || {
+    deviceDisabled: true,
+    registered: undefined,
+    domainName: "testing",
+    apiKey: null,
+    privateKey: null,
+    autoImport: false,
+    ready: false,
+    items: [],
+    inArchive: [],
+    inAPI: [],
+    generating: false,
+  };
+      if (config.deviceDisabled) {
+        localStorage.setItem(API_DEVICE_DISABLED, '1');}
+      else { localStorage.removeItem(API_DEVICE_DISABLED);}
+      ApiStore.set(config); */
      
       if (plugin.prefs.theme == "light") {
         theme = "g10"}
