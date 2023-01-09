@@ -31,10 +31,10 @@
             <h5 style="text-align:center">General Information</h5>
             <hr>
             <h4>General:</h4>
-            <h6>This is a plugin for {parent}. This plugin will support guided breathings. After a breathing exercise the plugin will log the results (repeats & total time) in {parent}</h6>
+            <h6>This is a plugin for {parent}. This plugin serves as a client for a {parent} Api server. The Api server needs to be installed seperately and is available for self hosting. The combination of the Api server and the client plugin will let you send logs to the server which will be pulled by the client plugin into {parent} as regular logs. More information on installation, configuration and usage can be found at www.dailynomie.com</h6>
             <hr><br>
             <h4>Licence:</h4>
-            <h6>The {parent} Breathe Plugin is licenced under the MIT licence</h6>
+            <h6>The {parent} Api Plugin is licenced under the MIT licence</h6>
             <h6>Copyright Ronald de Lange.
                 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
                 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
