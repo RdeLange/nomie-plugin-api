@@ -64,8 +64,14 @@
   $: if($ApiStore){
     setTimeout(()=>{
       let config = $ApiStore;
-     if(mode == "modal"){localStorage.setItem(LATEST_API_CONFIG, JSON.stringify(config));}
-      plugin.storage.setItem('config', config);
+     if(mode == "modal"){localStorage.setItem(LATEST_API_CONFIG, JSON.stringify(config));
+      plugin.storage.setItem('config', config);}
+      if(mode == "hidden"){
+        if (config.domainName && config.apiKey && config.privateKey) {
+          plugin.storage.setItem('config', config);
+        }
+      }
+      
     },500)
   }
 
@@ -116,7 +122,7 @@
       config = await plugin.storage.getItem('config') || JSON.parse(localStorage.getItem(LATEST_API_CONFIG)) || {
     deviceDisabled: true,
     registered: undefined,
-    domainName: "testing",
+    domainName: "loaderror",
     apiKey: null,
     privateKey: null,
     autoImport: false,
@@ -221,6 +227,24 @@ async function onLaunchStart(){
   }
   else {
     // background processes are running
+
+    // if register was not able to load config due to network or cpu issues, try again
+    if ($ApiStore.domainName == 'loaderror'){
+      let configagain = await plugin.storage.getItem('config') || JSON.parse(localStorage.getItem(LATEST_API_CONFIG)) || {
+    deviceDisabled: true,
+    registered: undefined,
+    domainName: "loaderror",
+    apiKey: null,
+    privateKey: null,
+    autoImport: false,
+    ready: false,
+    items: [],
+    inArchive: [],
+    inAPI: [],
+    generating: false,
+  };
+    }
+
   }
 },5000);
 }
