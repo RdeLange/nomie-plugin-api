@@ -16,7 +16,7 @@ API calls are not sent directly to the device. Instead, each note sent through t
 
 The url of the plugin is:
 
-[https://dailynomie.github.io/api-plugin/](https://dailynomie.github.io/api-plugin/)
+[https://dailynomie.github.io/nomie-plugin-api/](https://dailynomie.github.io/nomie-plugin-api/)
 
 The 🪝Nomie API Plugin can be installed in Nomie via the following steps:
 
@@ -64,7 +64,7 @@ Preferably you wil host your own Nomie Api Server (and as such have your own url
 
 **note** : **(required)** string  - the data note containing #your +tags and stuff
 
-key: **(required)** string - your API key
+**api_key** : **(required)** string - your API key
 
 **created** : Date - a javascript compliant date string
 
@@ -83,7 +83,7 @@ key: **(required)** string - your API key
 	"lat": 37.81,
 	"lng": -81.63,
 	"location": "Planet Earth"
-	"key": "123456789123456789234567789"
+	"api_key": "123456789123456789234567789"
 }
 ```
 
