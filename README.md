@@ -6,11 +6,9 @@ The 🪝Nomie Api Plugin is a plugin for Nomie6-oss.
 
 The Nomie API plugin allows you to push data notes into Nomie, for example importing your sleep data using [IFTTT](https://ifttt.com) or [Zapier](https://zapier.com).
 
-The 🪝Nomie API plugin acts as a client between a Nomie API Server and the Nomie app.
+The 🪝Nomie API **Plugin** acts as a client between a Nomie API Server and the Nomie app.
 
-The Nomie API server should be installed seperately. Instructions can be found via the following link:
-
-*-will be available soon-*
+The Nomie API **Server** should be installed seperately. Instructions can be found in the last section of this documentation
 
 API calls are not sent directly to the device. Instead, each note sent through the API is encrypted with your public key and held in a slot on the API Server until Nomie on your device can import and decrypt it. That slot will be freed up once Nomie pulls the note down.
 
@@ -60,7 +58,7 @@ Preferably you wil host your own Nomie Api Server (and as such have your own url
 
 * **URL** :[https://api.dailynomie.com/log](https://api.dailynomie.com/log)
 * **METHOD** : POST
-* **BODY** : application/jso
+* **BODY** : application/json
 
 ### Available payload properties:
 
