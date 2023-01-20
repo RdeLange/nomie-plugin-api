@@ -124,7 +124,7 @@ From above example i have deleted one item and saved the other item. Both items 
 
 ![](assets/20230120_225853_image.png)
 
-For the delted/discarded entries, you have the option to restore them. When completely confident, you can clear the full archive.
+For the deleted/discarded entries, you have the option to restore them. When completely confident, you can clear the full archive.
 
 # 🪝Nomie API Server
 
@@ -163,7 +163,7 @@ where the volumes line points to a directory on your server to persist data.
 
 ## Using the Server
 
-You can reach the server GUI by using your domain, followed by /ui (example: hhps://api.mydomain.com/ui)
+You can reach the server GUI by using your domain, followed by /ui (example: https://api.mydomain.com/ui)
 
 You will be provided with the following screen:
 
@@ -195,7 +195,7 @@ You can remove individual keys or flush all keys which are not used for longer t
 
 For the pending logs you have the option to flush them all or only the logs older then a Month.
 
-In the future I might add some additional management options, but as the server is intended to be self hosted for your / your families / your friends installed Nomie apps, these simple options should be enough.
+In the future I might add some additional management options, but as the server is intended to be self hosted for you / your family / your friends, these simple options should be enough.
 
 ### Managing accounts
 
