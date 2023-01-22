@@ -161,11 +161,11 @@ In the mean time -as stated above- you can try to use api.dailynomie.com as your
 
 My instantiation of the server is build with Node Red and can be deployed in many ways. You can find the source code at:
 
-[https://github.com/RdeLange/nomie-server-api](https://github.com/RdeLange/nomie-server-apihttps:/)
+[https://github.com/RdeLange/nomie-server-api](https://github.com/RdeLange/nomie-server-api)
 
 The most easy way of deploying the server is via a docker container. It can -for instance- be hosted on your Synology Nas.
 
-The Docker image is available at:[https://hub.docker.com/repository/docker/rdelange/dailynomie-apiserver/](https://hub.docker.com/repository/docker/rdelange/dailynomie-apiserver/https:/)
+The Docker image is available at:[https://hub.docker.com/repository/docker/rdelange/dailynomie-apiserver/](https://hub.docker.com/repository/docker/rdelange/dailynomie-apiserver/)
 
 An example of deployment stack is as follows:
 
