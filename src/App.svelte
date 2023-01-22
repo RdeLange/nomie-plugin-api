@@ -37,7 +37,7 @@
         version: "0.9",
         addToCaptureMenu: true,
         addToMoreMenu: true,
-        addToWidgets: true,
+        addToWidgets: false,
       }); 
 
   
