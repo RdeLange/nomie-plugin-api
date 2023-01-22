@@ -1,6 +1,6 @@
-# 🪝Nomie Api Plugin
+# 🪝Nomie API Plugin
 
-The 🪝Nomie Api Plugin is a plugin for Nomie6-oss.
+The 🪝Nomie API Plugin is a plugin for Nomie6-oss.
 
 ## About the 🪝Nomie API Plugin
 
@@ -30,7 +30,7 @@ The 🪝Nomie API Plugin can be installed in Nomie via the following steps:
 
 ## Configuring the Plugin
 
-After installing the plugin, please open the plugin and you will be prompted to generate a new api key on an api server. Alternatively -if you already have an api key from a previous configuration- you can restore that key.
+After installing the plugin, please open the plugin and you will be prompted to generate a new API key on an api server. Alternatively -if you already have an API key from a previous configuration- you can restore that key.
 
 ![](assets/20230120_221518_image.png)
 
@@ -47,14 +47,14 @@ If you previously acquired a key and you want to restore that on your device, yo
 in order to do so you need to provide the following information:
 
 * the domain of the server your previous key was acquired from
-* your previous api key
+* your previous API key
 * your previous private key
 
 Only the combination of above information will enable a restore, so please make sure to keep these details after you have been provided with an api key.
 
 ## Sending Data to the Api
 
-Preferably you wil host your own Nomie Api Server (and as such have your own url), but for convenience I have made a server available which I will support on best effort only.
+Preferably you wil host your own Nomie API Server (and as such have your own url), but for convenience I have made a server available which I will support on best effort only.
 
 * **URL** :[https://api.dailynomie.com/log](https://api.dailynomie.com/log)
 * **METHOD** : POST
@@ -62,30 +62,53 @@ Preferably you wil host your own Nomie Api Server (and as such have your own url
 
 ### Available payload properties:
 
-**note** : **(required)** string  - the data note containing #your +tags and stuff
+**note** - the content of the note to save in Nomie. Can include #tracker, @people, +context, text, anything
 
-**api_key** : **(required)** string - your API key
+**api_key** - your api key
 
-**created** : Date - a javascript compliant date string
+**lat** - latitude of a location
 
-**location** : Name of the location
+**lng** - longitude of a location
 
-**lat** : latitude
+**date** - Date of event - any[javascript date format
 
-**lng** : longitude
-
-**score** : number
+### Minimum required body payload
 
 ```javascript
 {
-	"note": "I'm tracking daaaata! #mood(5) #sleep(05:54:34)",
-	"created": "2023-01-20T15:57:44.123Z",
-	"lat": 37.81,
-	"lng": -81.63,
-	"location": "Planet Earth"
-	"api_key": "123456789123456789234567789"
+  "note": "Content of Note to save to nomie",
+  "api_key": "YOUR API KEY"
 }
 ```
+
+### All Available Options
+
+```javascript
+{
+    "lat": 31.3456,
+    "lng" : -81.43235,
+    "date": "2020-09-14T12:00:00.130Z",
+    "note" : "#tracker(123) @person +context",
+    "api_key": "YOUR API KEY"
+}
+```
+
+### Curl Example
+
+```javascript
+curl --request POST \
+  --url https://nomieapi.com/log \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "lat": 31.3456,
+    "lng" : -81.43235,
+    "date": "2020-09-14T12:00:00.130Z",
+    "note" : "NOTE CONTENT HERE",
+    "api_key": "YOUR API KEY"
+}'
+```
+
+![](assets/20230122_121558_Screen-Shot-2020-11-09-21-21-29.34-1604974897.png)
 
 ## The Plugin Settings
 
@@ -97,12 +120,12 @@ You will be directed to the following screen:
 
 ![](assets/20230120_223317_image.png)
 
-1. Your Api Key (you need this key to send logs/notes to Nomie)
-2. An example request. This will show you an example request which you can send to the api.
-3. Advanced. By expanding the advanced section you can copy your private key. You need your private key to restore your api (for example on an other device)
+1. Your API Key (you need this key to send logs/notes to Nomie)
+2. An example request. This will show you an example request which you can send to the API.
+3. Advanced. By expanding the advanced section you can copy your private key. You need your private key to restore your API (for example on an other device)
 4. Auto save new logs. Everytime data is send to the api, your data is stored (in an encrypted slot) on the server. When you open the Nomie app on your device, Nomie will pull the data from the server and empty the related server slots. When autosave is enabled, Nomie will automatically save the pulled data into Nomie log/note entries. When autosave is disabled, Nomie will hold the data untill you will manually authorise each pulled slot to flow into  Nomie as a log/note.
 5. Toggle to switch the API functionality on and off. When disables, Nomie will NOT reach out to the server to pull data slots.
-6. You can either remove the current key from the Nomie app, but it will be kept on the server so you can resore it later. You can also fully destroy your key  on both the client and the server. You api key will be gone...forever 😄
+6. You can either remove the current key from the Nomie app, but it will be kept on the server so you can resore it later. You can also fully destroy your key  on both the client and the server. You API key will be gone...forever 😄
 
 ## New Entries and Archive
 
@@ -185,7 +208,6 @@ The API server dashboard consists of 2 sections:
 
 * Managing the registered keys
 * Managing the pending logs
-
 
 ![](assets/20230120_232127_image.png)
 
