@@ -161,7 +161,7 @@ In the mean time -as stated above- you can try to use api.dailynomie.com as your
 
 My instantiation of the server is build with Node Red and can be deployed in many ways. You can find the source code at:
 
--to be included once available for sharing-
+[https://github.com/RdeLange/nomie-server-api](https://github.com/RdeLange/nomie-server-apihttps:/)
 
 The most easy way of deploying the server is via a docker container. It can -for instance- be hosted on your Synology Nas.
 
@@ -183,6 +183,8 @@ services:
 ```
 
 where the volumes line points to a directory on your server to persist data.
+
+More installation instructions can be found following above link to the Nomie API Server GitHub page.
 
 ## Using the Server
 
