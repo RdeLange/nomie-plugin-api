@@ -28,6 +28,7 @@
   const BACKGROUND_RUNNING = 'napi-background-running';
   const LATEST_API_CONFIG = 'napi-latest-config';
   const API_CLI_CONFIG = "napi-cli-config";
+  const API_AUTO_IMPORT_STATE = "napi-autoimport";
   
   const plugin = new NomiePlugin({
         name: pluginname,
@@ -191,6 +192,7 @@
 
 
 async function onLaunchStart(){
+  localStorage.setItem(API_AUTO_IMPORT_STATE, config.autoImport.toString());
   ApiStore.init();
   localStorage.setItem(BACKGROUND_RUNNING,"1");
   setInterval(async ()=>{
