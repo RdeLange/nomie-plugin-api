@@ -79,6 +79,7 @@
   function clientRunning(){
     localStorage.setItem(CLIENT_RUNNING,new Date());
     setTimeout(()=>{
+      localStorage.setItem(API_AUTO_IMPORT_STATE, config.autoImport.toString());
       ApiStore.init();
     },5000); // was 5000 rdl
     setInterval(()=>{
