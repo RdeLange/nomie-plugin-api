@@ -32,7 +32,8 @@ The 🪝Nomie API Plugin can be installed in Nomie via the following steps:
 
 After installing the plugin, please open the plugin and you will be prompted to generate a new API key on an api server. Alternatively -if you already have an API key from a previous configuration- you can restore that key.
 
-![](assets/20230120_221518_image.png)
+
+![](assets/20230308_230309_image.png)
 
 ### Generating a new key
 
