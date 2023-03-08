@@ -24,7 +24,7 @@
   <h4 style="text-align:center">No API Key Setup</h4>
   <br>
   {#if !$ApiStore.generating}
-  <h6 style="text-align:center">Get an API Key and use services like IFTTT or Zapier to push data to Smarter4Ever</h6>
+  <h6 style="text-align:center">Get an API Key and use services like IFTTT or Zapier to push data to Nomie6-OSS</h6>
   <br>
   <div class="row">
     <div class="column"><Button on:click={ApiStore.restoreKeys}>Restore</Button></div>
