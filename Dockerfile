@@ -7,7 +7,6 @@ COPY package*.json ./
 RUN apt update
 RUN apt install -y npm
 RUN npm install --legacy-peer-deps
-RUN npm run build
 COPY . .
 EXPOSE 5000
 ENV HOST=0.0.0.0
