@@ -431,6 +431,7 @@ const createApiStore = () => {
       
       // If we have logs lets import them
       if (logs.length) {
+        await tick(30000); // we wait for 30 seconds to avoid conflict when Nomie is starting up
         // Save the Logs
         let results: MassNapiLogImport = await methods.import(logs);
         // If no errors - show a toast notification
