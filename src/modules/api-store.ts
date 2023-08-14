@@ -464,6 +464,7 @@ const createApiStore = () => {
       for (let i = 0; i < logs.length; i++) {
         // Get log
         let log: NapiLog = logs[i];
+        await tick(1000); // we take the time for every log to avoid document errors
         try {
           // Add the Date
           // Convert it into an official Nomie Log
@@ -485,7 +486,7 @@ const createApiStore = () => {
             score: nlog.score,
             source: nlog.source
           });
-          await tick(500);
+          
           log.saved = saved ? true : false;
           // Update the Archives for this Note / Log
           let foundInArchive:boolean = false;
